@@ -1,0 +1,152 @@
+<?php
+/**
+  * Implements hook_menu()
+  */
+function mha_ereg_menu(){
+	$items['ereg'] = array(
+    'title' => 'eRegistration', 
+    'page callback' => 'mha_ereg_config',  
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+	
+	$items['ereg/event/%'] = array(
+    'title' => 'eRegistration', 
+    'page callback' => 'mha_ereg_event',
+		'page arguments' => array(2),
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+	
+	$items['ereg/autocomplete'] = array(
+    'page callback' => '_mha_ereg_autocomplete',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK
+  );
+	
+	return $items;
+}
+
+function mha_ereg_config(){
+	global $user;
+	if($user->uid){
+		$output = '<p>Select an event</p>';
+		$output .= views_embed_view('eregistration_events');
+	}
+	else{
+		$output = theme('image', array(
+			'path' => drupal_get_path('module', 'mha_ereg') .'/images/mha-new-trans.png',
+		));
+		$output .= '<p>Eletronic Event Registration</p>';
+		$output .= render(drupal_get_form('user_login'));
+	}
+	return $output;
+}
+
+function mha_ereg_form_alter(&$form, &$form_state, $form_id){
+	if($form_id == 'user_login'){
+		$form['form_js']['#after_build'] = array('_mha_ereg_add_js');
+	}
+}
+
+function mha_ereg_user_login(&$edit, $account) {
+	if(arg(0) == 'ereg'){
+		$edit['redirect'] = 'ereg';
+	}
+}
+
+
+function _mha_ereg_add_js($element){
+	drupal_add_js(drupal_get_path('module', 'mha_ereg') . '/js/mha_ereg.js');
+	return $element;
+}
+
+function mha_ereg_event($nid = null){
+	if($nid == null){
+		return 'No event specified.';
+	}
+	else{
+		$event = node_load($nid);
+		if($event->type != 'event'){
+			return 'No valid event specified.';
+		}
+		$output = '<h1>' . $event->title . ' eRegistration</h1>';
+		$output .= render(drupal_get_form('mha_ereg_registration_form', $event));
+		return $output;
+	}
+}
+
+
+function _mha_ereg_autocomplete($string){
+	$matches = array();
+	$result = db_select('users')
+	  ->fields('users', array('field_last_name'))
+		->condition('field_last_name', db_like($string) . '%', 'LIKE')
+		->range(0, 10)
+	->execute();
+	
+  // add matches to $matches  
+  foreach ($results as $row) {
+    $matches[$row->field_last_name] = check_plain($row->field_last_name);
+  }
+	
+	$field_name = 'field_last_name'; // Change this to your address field's machine name.
+  $column_name = $field_name . '_name_line';
+  $matches = array();
+  $query = db_select('users', 'u');
+  $query->innerJoin(
+    'field_data_' . $field_name,
+    'address',
+    "address.entity_id = u.uid AND address.bundle = 'user'"
+  );
+  $query->condition("address.$column_name", '%' . db_like($string) . '%', 'LIKE');
+  $query->condition('u.uid', 0, '<>');
+  $query->fields('u', array('uid', 'name'));
+  $query->fields('address', array($column_name));
+  $query->range(0, 10);
+  $results = $query->execute();
+  foreach ($results as $row) {
+    $key = $row->{$column_name} . " ($row->uid)";
+    $matches[$key] = check_plain($row->{$column_name});
+  }
+  
+  // return for JS
+  drupal_json_output($matches);
+}
+
+function mha_ereg_registration_form($form, &$form_state, $event){
+	$form['event'] = array(
+		'#type' => 'value',
+		'#value' => $event->nid,
+	);
+	
+	$form['my_entity_reference'] = array(
+		'#type' => 'entityreference',
+		'#title' => t('Member Surname'),
+		'#era_entity_type' => 'user',  // Mandatory.
+		'#era_bundles' => array(), // Optional (Any bundle by default).
+		'#era_query_settings' => array(
+			'limit' => 15, // Default is 50.
+		),
+	);
+
+	
+	$form['non_member']['non_member_name'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Full Name'),
+	);
+	
+	$form['submit'] = array(
+		'#type' => 'submit',
+		'#value' => 'Check-in Member'
+	);
+	
+	return $form;
+}
+
+function mha_ereg_registration_form_submit($form, &$form_state){
+	$values = $form_state['values'];
+	print_r($values);
+	exit;
+}
+
