@@ -8,7 +8,7 @@ projects[drupal][type] = core
 projects[drupal][patch][] = "http://drupal.org/files/issues/844388-clone-node_1.patch"
 
 
-projects[mha][type] = profile
-projects[mha][download][type] = git
-projects[mha][download][url] = git@github.com:chrisdidcote/HD.git
-projects[mha][download][branch] = master
+projects[hd][type] = profile
+projects[hd][download][type] = git
+projects[hd][download][url] = git@github.com:chrisdidcote/HD.git
+projects[hd][download][branch] = master
