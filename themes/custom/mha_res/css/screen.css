@@ -607,6 +607,10 @@ strong {
 .navbar-full {
   background: #000; }
 
-/* line 616, ../sass/screen.scss */
+/* line 615, ../sass/screen.scss */
+.navbar.container {
+  margin-top: 0; }
+
+/* line 619, ../sass/screen.scss */
 .not-front .main-container {
   margin-top: 1em; }
