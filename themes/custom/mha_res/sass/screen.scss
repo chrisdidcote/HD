@@ -118,6 +118,9 @@ p{
   .navbar-nav{
     float: right;
   }
+  .navbar-nav>li>a{
+    margin-left: 1em;
+  }
 }
 
 @media (max-width: 768px){
@@ -132,6 +135,7 @@ p{
   .pane-latest-tweets{
     display: none;
   }
+
 }
 .region.region-sidebar-first.well{
   padding-top: 0;
