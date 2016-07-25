@@ -622,3 +622,7 @@ strong {
 /* line 628, ../sass/screen.scss */
 #block-block-3 p {
   font-size: 0.8em; }
+
+/* line 632, ../sass/screen.scss */
+.footer {
+  border-top: none; }
