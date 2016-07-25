@@ -618,3 +618,7 @@ strong {
 /* line 623, ../sass/screen.scss */
 .not-front .main-container {
   margin-top: 1em; }
+
+/* line 628, ../sass/screen.scss */
+#block-block-3 p {
+  font-size: 0.8em; }
