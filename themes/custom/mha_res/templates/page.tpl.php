@@ -73,56 +73,34 @@
  * @ingroup themeable
  */
 ?>
-<header id="navbar" role="banner" class="<?php print $navbar_classes; ?>">
-  <div class="container">
-    <div class="navbar-header">
-      <?php if ($logo): ?>
-      <a class="logo navbar-btn pull-left" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
-        <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
-      </a>
-      <?php endif; ?>
-
-      <?php if (!empty($site_name)): ?>
-      <a class="name navbar-brand" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>"><?php print $site_name; ?></a>
-      <?php endif; ?>
-      
-      <div id="header-committee" class="hidden-sm hidden-xs">
-        <p><strong>Patrons:</strong> Dr Jennifer Bate, OBE. BA, Hon. DMus</p>
-        <p>Professor Dame Carol Black, DBE, MD, FRCP, MACP, FMedSci</p>
-        <p><strong>President:</strong> Dr Martin Crossley Evans, MBE, J,P BA, PhD, FSA, FGS</p>
-        <p><strong>Vice-Presidents:</strong> Mrs Lilian Brown, BA, Hon. MA, CertEd</p>
-        <p>Mr Christopher Didcote, BSc</p>
-      </div>
-
-      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-  </div>
-</header>
-
- <div class="navbar-full">
-  <?php if (!empty($primary_nav) || !empty($secondary_nav) || !empty($page['navigation'])): ?>
+<div id="header-bar">
+  <header id="navbar" role="banner" class="<?php print $navbar_classes; ?>">
     <div class="container">
-      <div class="navbar-collapse collapse">
-        <nav role="navigation">
+      <div class="navbar-header">
+        <?php if ($logo): ?>
+        <a class="logo navbar-btn pull-left" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
+          <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
+        </a>
+        <?php endif; ?>
+  
+        <?php if (!empty($site_name)): ?>
+        <a class="name navbar-brand" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>"><?php print $site_name; ?></a>
+        <?php endif; ?>
+        <div id="primary-nav">
           <?php if (!empty($primary_nav)): ?>
             <?php print render($primary_nav); ?>
           <?php endif; ?>
-          <?php if (!empty($secondary_nav)): ?>
-            <?php print render($secondary_nav); ?>
-          <?php endif; ?>
-          <?php if (!empty($page['navigation'])): ?>
-            <?php print render($page['navigation']); ?>
-          <?php endif; ?>
-        </nav>
+        </div>
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
       </div>
     </div>
-  <?php endif; ?>
+  </header>
 </div>
 
 <div class="main-container container">

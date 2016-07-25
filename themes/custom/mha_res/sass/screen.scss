@@ -114,7 +114,9 @@ p{
 }
 @media (min-width: 768px){
   .footer{
-    background: transparent url("../images/whitelogo.png") bottom right no-repeat;
+  }
+  .navbar-nav{
+    float: right;
   }
 }
 
@@ -135,8 +137,6 @@ p{
   padding-top: 0;
 }
 .navbar-full{
-  background: #161B20;
-  margin-bottom: 20px;
   .container{
     padding: 0;
     a{
@@ -370,8 +370,7 @@ strong{
 @media (min-width: 768px) {
   .region-footer{
     .block{
-      width: 33.33%;
-      float: left;
+      
     }
   }
 }
@@ -564,4 +563,26 @@ strong{
 .field-name-field-images,
 .field-name-field-image{
   margin-bottom: 1em;
+}
+#header-bar{
+  background: #000;
+}
+.front{
+  .pane-block-1{
+    .pane-content{
+      padding: 0;
+      border: 0;
+      background: transparent;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+  }
+}
+.col-md-12{
+  margin-bottom: 1em;
+}
+.front{
+  .navbar{
+    margin-bottom: 0;
+  }
 }
