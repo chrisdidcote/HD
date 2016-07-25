@@ -104,6 +104,7 @@
     <div class="container">
       <div class="navbar-collapse collapse">
         <nav role="navigation">
+
           <?php if (!empty($primary_nav)): ?>
             <?php print render($primary_nav); ?>
           <?php endif; ?>
