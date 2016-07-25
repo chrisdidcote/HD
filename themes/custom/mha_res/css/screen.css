@@ -626,3 +626,7 @@ strong {
 /* line 632, ../sass/screen.scss */
 .footer {
   border-top: none; }
+
+/* line 636, ../sass/screen.scss */
+.webform-component-textarea .description {
+  font-size: 0.8em; }
